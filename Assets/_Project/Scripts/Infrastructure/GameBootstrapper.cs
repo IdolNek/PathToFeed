@@ -1,8 +1,9 @@
-﻿using CodeBase.Infrastructure.States;
+﻿using _Project.Scripts.Infrastructure.StateMachine;
+using _Project.Scripts.Infrastructure.StateMachine.State;
 using UnityEngine;
 using Zenject;
 
-namespace CodeBase.Infrastructure
+namespace _Project.Scripts.Infrastructure
 {
     public class GameBootstrapper : MonoBehaviour
     {

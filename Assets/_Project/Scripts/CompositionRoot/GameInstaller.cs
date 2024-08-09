@@ -1,17 +1,14 @@
-using CodeBase.Infrastructure;
-using CodeBase.Infrastructure.Factories;
-using CodeBase.Infrastructure.States;
-using CodeBase.Services.AdsService;
-using CodeBase.Services.InputService;
-using CodeBase.Services.PlayerProgressService;
-using CodeBase.Services.RandomizerService;
-using CodeBase.Services.SaveLoadService;
-using CodeBase.Services.StaticDataService;
-using CodeBase.UI.Factories;
+using _Project.Scripts.Infrastructure;
+using _Project.Scripts.Infrastructure.Factories;
+using _Project.Scripts.Infrastructure.StateMachine;
+using _Project.Scripts.Services.SaveLoadService;
+using _Project.Scripts.Services.SimulateCurrentDataService;
+using _Project.Scripts.Services.StaticDataService;
+using _Project.Scripts.UI.Factories;
 using UnityEngine;
 using Zenject;
 
-namespace CodeBase.CompositionRoot
+namespace _Project.Scripts.CompositionRoot
 {
     public class GameInstaller : MonoInstaller
     {
@@ -33,15 +30,9 @@ namespace CodeBase.CompositionRoot
         
             BindUIFactory();
 
-            BindRandomizeService();
-
-            BindPlayerProgressService();
+            BindSimulateDataService();
 
             BindSaveLoadService();
-
-            BindAdsService();
-
-            BindInputService();
         }
 
         private void BindStaticDataService() => 
@@ -53,13 +44,7 @@ namespace CodeBase.CompositionRoot
                 .BindFactory<GameBootstrapper, GameBootstrapper.Factory>()
                 .FromComponentInNewPrefabResource(InfrastructureAssetPath.GameBootstraper);
         }
-
-        private void BindInputService() => 
-            Container.BindInterfacesAndSelfTo<InputService>().AsSingle();
-
-        private void BindAdsService() => 
-            Container.BindInterfacesAndSelfTo<AdsService>().AsSingle();
-
+        
         private void BindSaveLoadService()
         {
             Container
@@ -67,15 +52,12 @@ namespace CodeBase.CompositionRoot
                 .AsSingle();
         }
 
-        private void BindPlayerProgressService()
+        private void BindSimulateDataService()
         {
             Container
-                .BindInterfacesAndSelfTo<PlayerProgressService>()
+                .BindInterfacesAndSelfTo<SimulateCurrentDataService>()
                 .AsSingle();
         }
-
-        private void BindRandomizeService() => 
-            Container.BindInterfacesAndSelfTo<RandomizerService>().AsSingle();
 
         private void BindGameFactory()
         {

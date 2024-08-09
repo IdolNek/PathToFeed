@@ -2,7 +2,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace CodeBase.Infrastructure
+namespace _Project.Scripts.Infrastructure
 {
     public class LoadingCurtain : MonoBehaviour, ILoadingCurtain
     {

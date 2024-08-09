@@ -1,7 +1,7 @@
-using CodeBase.UI.HUD;
+using _Project.Scripts.UI.HUD;
 using Zenject;
 
-namespace CodeBase.Infrastructure.Factories
+namespace _Project.Scripts.Infrastructure.Factories
 {
     public class GameFactoryInstaller : Installer<GameFactoryInstaller>
     {

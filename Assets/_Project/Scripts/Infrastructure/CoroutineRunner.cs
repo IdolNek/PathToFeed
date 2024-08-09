@@ -1,7 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace CodeBase.Infrastructure
+namespace _Project.Scripts.Infrastructure
 {
     public class CoroutineRunner : MonoBehaviour, ICoroutineRunner
     {

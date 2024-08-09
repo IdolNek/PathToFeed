@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Zenject;
 
-namespace CodeBase.UI.HUD
+namespace _Project.Scripts.UI.HUD
 {
     public class HUDRoot : MonoBehaviour, IHUDRoot
     {

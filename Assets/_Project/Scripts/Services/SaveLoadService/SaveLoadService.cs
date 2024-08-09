@@ -1,34 +1,28 @@
-﻿using System.Collections.Generic;
-using CodeBase.Data;
-using CodeBase.Services.PlayerProgressService;
+﻿using _Project.Scripts.Data;
+using _Project.Scripts.Services.SimulateCurrentDataService;
 using UnityEngine;
 
-namespace CodeBase.Services.SaveLoadService
+namespace _Project.Scripts.Services.SaveLoadService
 {
     public class SaveLoadService : ISaveLoadService
     {
-        private const string ProgressKey = "Progress";
+        private const string ProgressKey = "SimulateData";
         
-        private readonly IEnumerable<IProgressSaver> saverServices;
-        private readonly IPlayerProgressService playerProgressService;
+        private readonly ISimulateCurrentDataService _simulateCurrentDataService;
 
-        public SaveLoadService(IEnumerable<IProgressSaver> saverServices, IPlayerProgressService playerProgressService)
+        public SaveLoadService(ISimulateCurrentDataService simulateCurrentDataService)
         {
-            this.saverServices = saverServices;
-            this.playerProgressService = playerProgressService;
+            _simulateCurrentDataService = simulateCurrentDataService;
         }
 
         public void SaveProgress()
         {
-            foreach (var saver in saverServices) 
-                saver.UpdateProgress(playerProgressService.Progress);
-            
-            PlayerPrefs.SetString(ProgressKey, playerProgressService.Progress.ToJson());
+            PlayerPrefs.SetString(ProgressKey, _simulateCurrentDataService.SimulateData.ToJson());
         }
 
-        public PlayerProgress LoadProgress()
+        public CurrentData LoadConfig()
         {
-            return PlayerPrefs.GetString(ProgressKey)?.ToDeserialized<PlayerProgress>();
+            return PlayerPrefs.GetString(ProgressKey)?.ToDeserialized<CurrentData>();
         }
     }
 }

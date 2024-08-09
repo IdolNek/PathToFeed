@@ -1,10 +1,10 @@
-﻿using CodeBase.Data;
+﻿using _Project.Scripts.Data;
 
-namespace CodeBase.Services.SaveLoadService
+namespace _Project.Scripts.Services.SaveLoadService
 {
     public interface ISaveLoadService
     {
         void SaveProgress();
-        PlayerProgress LoadProgress();
+        CurrentData LoadConfig();
     }
 }
