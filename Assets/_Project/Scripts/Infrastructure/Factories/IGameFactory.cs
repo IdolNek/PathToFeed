@@ -1,4 +1,5 @@
-﻿using _Project.Scripts.UI.HUD;
+﻿using _Project.Scripts.Simulation;
+using _Project.Scripts.UI.HUD;
 
 namespace _Project.Scripts.Infrastructure.Factories
 {
@@ -6,5 +7,6 @@ namespace _Project.Scripts.Infrastructure.Factories
     {
         IHUDRoot CreateHUD();
         void Cleanup();
+        SimulationManager CreateSimulationManager();
     }
 }

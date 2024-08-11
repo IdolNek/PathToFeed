@@ -7,6 +7,8 @@
         public const string HUDRoot = "Infrastructure/HUD Root";
         public const string InterfaceRoot = "Infrastructure/UIRoot";
         public const string GameBootstraper = "Infrastructure/Game Bootstraper";
+        public const string SimulationManager = "Infrastructure/SimulationManager";
+        
         
     }
 }

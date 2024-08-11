@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8d9e06aef094840af3a4edd1304c70e, type: 3}
   m_Name: LevelStaticData
   m_EditorClassIdentifier: 
-  MinFieldSize: 0
-  MaxFieldSize: 0
-  MinAnimalCount: 0
-  MinAnimalSpeed: 0
-  MaxAnimalSpeed: 0
+  MinFieldSize: 2
+  MaxFieldSize: 1000
+  MinAnimalCount: 1
+  MinAnimalSpeed: 1
+  MaxAnimalSpeed: 100

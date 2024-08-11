@@ -1,5 +1,7 @@
 ﻿using _Project.Scripts.StaticData.Windows;
 using _Project.Scripts.UI.Interface;
+using _Project.Scripts.UI.Interface.GameMenu;
+using UnityEngine;
 
 namespace _Project.Scripts.UI.Factories
 {
@@ -7,6 +9,6 @@ namespace _Project.Scripts.UI.Factories
     {
         void Cleanup();
         InterfaceRoot CreateRootUI();
-        void CreateWindow(WindowsId id);
+        GameObject CreateWindow(WindowsId id);
     }
 }

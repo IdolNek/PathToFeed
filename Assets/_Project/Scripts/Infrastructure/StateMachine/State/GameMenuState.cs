@@ -1,5 +1,6 @@
 using _Project.Scripts.StaticData.Windows;
 using _Project.Scripts.UI.Factories;
+using UnityEngine;
 using Zenject;
 
 namespace _Project.Scripts.Infrastructure.StateMachine.State
@@ -10,6 +11,8 @@ namespace _Project.Scripts.Infrastructure.StateMachine.State
         private readonly ISceneLoader _sceneLoader;
         private readonly IUIFactory _uiFactory;
         private readonly ILoadingCurtain _loadingCurtain;
+        
+        private GameObject _gameMenu;
 
         public GameMenuState(IGameStateMachine stateMachine, ISceneLoader sceneLoader, IUIFactory uiFactory, ILoadingCurtain loadingCurtain)
         {
@@ -21,6 +24,7 @@ namespace _Project.Scripts.Infrastructure.StateMachine.State
         public void Exit()
         {
             _loadingCurtain.Show();
+            Object.Destroy(_gameMenu);
         }
 
         public void Enter()
@@ -32,7 +36,7 @@ namespace _Project.Scripts.Infrastructure.StateMachine.State
         {
             _loadingCurtain.Hide();
             _uiFactory.CreateRootUI();
-            _uiFactory.CreateWindow(WindowsId.GameMenu);
+            _gameMenu = _uiFactory.CreateWindow(WindowsId.GameMenu);
         }
 
         public class Factory : PlaceholderFactory<IGameStateMachine, GameMenuState> { }

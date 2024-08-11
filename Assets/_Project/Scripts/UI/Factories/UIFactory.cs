@@ -3,6 +3,7 @@ using _Project.Scripts.Services.StaticDataService;
 using _Project.Scripts.StaticData.Windows;
 using _Project.Scripts.UI.Interface;
 using _Project.Scripts.UI.Interface.GameMenu;
+using UnityEngine;
 using Zenject;
 
 namespace _Project.Scripts.UI.Factories
@@ -28,24 +29,26 @@ namespace _Project.Scripts.UI.Factories
             return _interface;
         }
 
-        public void CreateWindow(WindowsId id)
+        public GameObject CreateWindow(WindowsId id)
         {
+            GameObject window = null;
             switch (id)
             {
                 case WindowsId.GameMenu:
-                    CreateGameMenu();
+                    window = CreateGameMenu();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(id), id, null);
             }
+            return window;
         }
 
-        private void CreateGameMenu()
+        private GameObject CreateGameMenu()
         {
             WindowsStaticData window = _staticDataService.GetWindows(WindowsId.GameMenu);
             GameMenuPresenter gameMenu = _container.InstantiatePrefab(window.Prefab,_interface.Canvas.transform).GetComponent<GameMenuPresenter>();
             gameMenu.Initialize();
-            
+            return gameMenu.gameObject;
         }
 
         public void Cleanup()
