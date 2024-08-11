@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5624495905728790451}
   - component: {fileID: 6747431474436252930}
-  - component: {fileID: 8710757178468588540}
   m_Layer: 0
   m_Name: SimulationManager
   m_TagString: Untagged
@@ -45,20 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b785958f1aa946f288b1b91b75c20ada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fieldInitializer: {fileID: 8710757178468588540}
-  _animalPrefab: {fileID: 2760266277292736075, guid: b1e74129f60c3cf4d818730f3c852fdb, type: 3}
-  _foodPrefab: {fileID: 1264653323617168934, guid: 2b91596473059374092f42251f0f5feb, type: 3}
-  _effectPrefab: {fileID: 5887564847081490161, guid: 166bf1172a622a1449d141d136ccb8d6, type: 3}
---- !u!114 &8710757178468588540
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4294099098808147405}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 663682bad53e4b30a38df33ae79c3950, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fieldPlanePrefab: {fileID: 2530834858411719434, guid: ebbcdccae49329749a8a9a5c53904a46, type: 3}
+  animalPrefab: {fileID: 2760266277292736075, guid: b1e74129f60c3cf4d818730f3c852fdb, type: 3}
+  foodPrefab: {fileID: 1264653323617168934, guid: 2b91596473059374092f42251f0f5feb, type: 3}
+  effectPrefab: {fileID: 7480963912750745193, guid: 6258ce3ecd9b9e34abbf9cde1d3b3521, type: 3}

@@ -1,105 +1,96 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace _Project.Scripts.Simulation
 {
+    [RequireComponent(typeof(Rigidbody))]
     public class Animal : MonoBehaviour
     {
-        private Vector3 _targetFoodPosition;
+        private Food _targetFood;
+        private float _speed;
         private GameObject _foodPrefab;
         private GameObject _effectPrefab;
-        private float _speed;
         private float _fieldSize;
-        private GameObject _currentFood;
 
-        private Transform _foodPoolParent;
-        private Transform _effectPoolParent;
-        private GameObject _foodPoolObject;
-        private GameObject _effectPoolObject;
+        private Rigidbody _rigidbody;
 
-        public void Initialize(float fieldSize, float speed, GameObject foodPrefab, GameObject effectPrefab,
-            Transform foodPoolParent, Transform effectPoolParent)
+        void Start()
         {
-            _fieldSize = fieldSize;
-            _speed = speed;
-            _foodPrefab = foodPrefab;
-            _effectPrefab = effectPrefab;
-            _foodPoolParent = foodPoolParent;
-            _effectPoolParent = effectPoolParent;
-
-            GenerateFood();
+            _rigidbody = GetComponent<Rigidbody>();
+            _rigidbody.isKinematic = false;
+            _rigidbody.freezeRotation = true;
         }
 
-        private void Update()
+        public void SetTargetFood(Food food, GameObject foodPrefab, GameObject effectPrefab, float fieldSize)
         {
-            MoveTowardsFood();
+            _targetFood = food;
+            _foodPrefab = foodPrefab;
+            _effectPrefab = effectPrefab;
+            _fieldSize = fieldSize;
+        }
+
+        public void SetSpeed(float speed)
+        {
+            _speed = speed;
+        }
+
+        void FixedUpdate()
+        {
+            if (_targetFood != null)
+            {
+                MoveTowardsFood();
+            }
         }
 
         private void MoveTowardsFood()
         {
-            if (_targetFoodPosition != Vector3.zero)
-            {
-                transform.position =
-                    Vector3.MoveTowards(transform.position, _targetFoodPosition, _speed * Time.deltaTime);
+            if (_targetFood == null) return;
 
-                if (Vector3.Distance(transform.position, _targetFoodPosition) < 0.1f)
-                {
-                    HandleFoodEaten();
-                }
+            Vector3 direction = (_targetFood.transform.position - transform.position).normalized;
+            transform.position += direction * _speed * Time.fixedDeltaTime;
+
+            float distance = Vector3.Distance(transform.position, _targetFood.transform.position);
+            if (distance < 0.5f)
+            {
+                StartCoroutine(OnFoodReachedCoroutine());
             }
         }
 
-        private void GenerateFood()
+        private IEnumerator OnFoodReachedCoroutine()
         {
-            Vector3 foodPosition = GetRandomPositionNear(transform.position);
-            _currentFood = Instantiate(_foodPrefab, foodPosition, Quaternion.identity, _foodPoolParent);
-            _targetFoodPosition = foodPosition;
+            transform.position =
+                new Vector3(transform.position.x, transform.position.y, transform.position.z);
+            Destroy(_targetFood.gameObject);
+            PlayEatingEffect();
+
+            yield return new WaitForSeconds(1.0f);
+
+            Vector3 newFoodPosition = GenerateNewFoodPosition();
+            _targetFood = Instantiate(_foodPrefab, newFoodPosition, Quaternion.identity).GetComponent<Food>();
         }
 
-        private void HandleFoodEaten()
+        private void PlayEatingEffect()
         {
-            if (_currentFood != null)
-            {
-                // Spawn the effect
-                GameObject effectObject = Instantiate(_effectPrefab, _currentFood.transform.position,
-                    Quaternion.identity, _effectPoolParent);
-                Destroy(_currentFood); // Destroy food immediately
-                _currentFood = null;
-
-                // Deactivate effect after 1 second
-                StartCoroutine(DeactivateEffectAfterDelay(effectObject, 1f));
-
-                // Generate new food
-                GenerateFood();
-            }
+            GameObject effect = Instantiate(_effectPrefab, transform.position, Quaternion.identity);
+            ParticleSystem particleSystem = effect.GetComponent<ParticleSystem>();
+            particleSystem.Play();
+            Destroy(effect, 1.0f);
         }
 
-        private IEnumerator DeactivateEffectAfterDelay(GameObject effectObject, float delay)
+        private Vector3 GenerateNewFoodPosition()
         {
-            yield return new WaitForSeconds(delay);
-            effectObject.SetActive(false);
-        }
+            float halfFieldSize = _fieldSize / 2.0f;
+            Vector3 randomDirection = Random.insideUnitSphere * (_speed * 5.0f);
+            randomDirection.y = 0;
 
-        private Vector3 GetRandomPositionNear(Vector3 center)
-        {
-            float maxDistance = Mathf.Min(5f, _fieldSize / 2f);
-            Vector3 randomPosition;
-            do
-            {
-                randomPosition = center + new Vector3(
-                    Random.Range(-maxDistance, maxDistance),
-                    0,
-                    Random.Range(-maxDistance, maxDistance)
-                );
-            } while (!IsWithinField(randomPosition));
+            Vector3 newFoodPosition = transform.position + randomDirection;
 
-            return randomPosition;
-        }
+            newFoodPosition.x = Mathf.Clamp(newFoodPosition.x, -halfFieldSize, halfFieldSize);
+            newFoodPosition.z = Mathf.Clamp(newFoodPosition.z, -halfFieldSize, halfFieldSize);
 
-        private bool IsWithinField(Vector3 position)
-        {
-            float halfSize = _fieldSize / 2f;
-            return Mathf.Abs(position.x) <= halfSize && Mathf.Abs(position.z) <= halfSize;
+            return newFoodPosition;
         }
     }
 }

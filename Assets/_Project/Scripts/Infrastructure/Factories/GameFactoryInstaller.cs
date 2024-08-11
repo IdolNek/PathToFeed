@@ -8,7 +8,7 @@ namespace _Project.Scripts.Infrastructure.Factories
     {
         public override void InstallBindings()
         {
-            Container.BindFactory<HUDRoot, HUDRoot.Factory>()
+            Container.BindFactory<HUDRootPresenter, HUDRootPresenter.Factory>()
                 .FromComponentInNewPrefabResource(InfrastructureAssetPath.HUDRoot);
 
             Container.BindFactory<SimulationManager, SimulationManager.Factory>()

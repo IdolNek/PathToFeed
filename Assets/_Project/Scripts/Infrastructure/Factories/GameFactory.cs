@@ -5,10 +5,10 @@ namespace _Project.Scripts.Infrastructure.Factories
 {
     public class GameFactory : IGameFactory
     {
-        private readonly HUDRoot.Factory _hudFactory;
+        private readonly HUDRootPresenter.Factory _hudFactory;
         private readonly SimulationManager.Factory _simulationManagerFactory;
 
-        public GameFactory( HUDRoot.Factory hudFactory, SimulationManager.Factory simulationManagerFactory)
+        public GameFactory( HUDRootPresenter.Factory hudFactory, SimulationManager.Factory simulationManagerFactory)
         {
             _simulationManagerFactory = simulationManagerFactory;
             _hudFactory = hudFactory;
