@@ -3,9 +3,7 @@ using _Project.Scripts.Infrastructure.StateMachine.State;
 using _Project.Scripts.Services.SaveLoadService;
 using _Project.Scripts.Services.SimulateCurrentDataService;
 using _Project.Scripts.Services.StaticDataService;
-using JetBrains.Annotations;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Zenject;
 

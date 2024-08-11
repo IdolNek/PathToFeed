@@ -17,7 +17,6 @@ namespace _Project.Scripts.Infrastructure.StateMachine
 
             Container.Bind<IGameStateMachine>().To<GameStateMachine>().AsSingle();
         
-            Debug.Log("GameStateMachineInstaller");
         }
     }
 }

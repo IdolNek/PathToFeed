@@ -50,11 +50,11 @@ namespace _Project.Scripts.Simulation
             }
         }
 
+        public void ChangeAnimalSpeed(float value) => 
+            _animalSpawner.ChangeAnimalSpeed(value);
+
         public class Factory : PlaceholderFactory<SimulationManager>
         {
         }
-
-        public void ChangeAnimalSpeed(float value) => 
-            _animalSpawner.ChangeAnimalSpeed(value);
     }
 }

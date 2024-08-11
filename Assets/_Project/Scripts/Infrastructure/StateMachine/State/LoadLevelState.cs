@@ -21,14 +21,12 @@ namespace _Project.Scripts.Infrastructure.StateMachine.State
 
         public void Enter(string sceneName)
         {
-            Debug.Log($"LoadLevelState enter. Load scene {sceneName}");
             _loadingCurtain.Show();
             _sceneLoader.Load(sceneName, OnLoaded);
         }
 
         public void Exit()
         {
-            Debug.Log("LoadLevelState exit");
         }
 
         private void OnLoaded()

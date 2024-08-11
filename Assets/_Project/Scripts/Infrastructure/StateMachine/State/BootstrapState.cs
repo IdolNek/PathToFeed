@@ -12,15 +12,12 @@ namespace _Project.Scripts.Infrastructure.StateMachine.State
         public BootstrapState(IGameStateMachine gameStateMachine,
             IStaticDataService staticDataService)
         {
-            Debug.Log("BootstrapState constructor");
             _gameStateMachine = gameStateMachine;
             _staticDataService = staticDataService;
         }
 
         public void Enter()
         {
-            Debug.Log("BootstrapState Enter");
-            
             InitServices();
             _gameStateMachine.Enter<LoadSimulateConfigState>();
         }
@@ -32,7 +29,6 @@ namespace _Project.Scripts.Infrastructure.StateMachine.State
 
         public void Exit()
         {
-            Debug.Log("BootstrapState Exit");
         }
 
         public class Factory : PlaceholderFactory<IGameStateMachine, BootstrapState>

@@ -1,6 +1,5 @@
 ﻿using _Project.Scripts.Services.SimulateCurrentDataService;
 using _Project.Scripts.Simulation;
-using _Project.Scripts.UI.Interface.GameMenu;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -22,7 +21,6 @@ namespace _Project.Scripts.UI.HUD
         public void Init(SimulationManager simulationManager)
         {
             _simulationManager = simulationManager;
-            
             _speedSlider.value = _simulateCurrentDataService.SimulateData.AnimalSpeed;
 
         }
