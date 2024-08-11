@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace _Project.Scripts.Simulation
@@ -10,6 +11,7 @@ namespace _Project.Scripts.Simulation
         private float _fieldSize;
         private float _maxDistance;
         private float _speed;
+        private List<Animal> _animals = new List<Animal>();
 
         public AnimalSpawner(GameObject animalPrefab, GameObject foodPrefab, GameObject effectPrefab, float fieldSize, float speed)
         {
@@ -33,6 +35,8 @@ namespace _Project.Scripts.Simulation
             Animal animal = animalObject.GetComponent<Animal>();
             animal.SetTargetFood(foodObject, _foodPrefab, _effectPrefab, _fieldSize);
             animal.SetSpeed(_speed);
+
+            _animals.Add(animal);
         }
 
         private Vector3 GetRandomPosition()
@@ -55,6 +59,14 @@ namespace _Project.Scripts.Simulation
             foodPosition.z = Mathf.Clamp(foodPosition.z, -halfFieldSize, halfFieldSize);
 
             return foodPosition;
+        }
+
+        public void ChangeAnimalSpeed(float value)
+        {
+            foreach (Animal animal in _animals)
+            {
+                animal.SetSpeed(value);
+            }
         }
     }
 }

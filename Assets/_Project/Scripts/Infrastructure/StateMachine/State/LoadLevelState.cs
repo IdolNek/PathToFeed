@@ -34,6 +34,7 @@ namespace _Project.Scripts.Infrastructure.StateMachine.State
         private void OnLoaded()
         {
             _gameFactory.CreateSimulationManager();
+            _gameFactory.CreateHUD();
             _gameStateMachine.Enter<GameLoopState>();
             _loadingCurtain.Hide();
         }

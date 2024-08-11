@@ -10,15 +10,13 @@ namespace _Project.Scripts.Infrastructure.StateMachine.State
     {
         private readonly IGameStateMachine _gameStateMachine;
         private readonly ISaveLoadService _saveLoadService;
-        private readonly IStaticDataService _staticDataService;
         private readonly ISimulateCurrentDataService _simulateData;
 
         public LoadSimulateConfigState(IGameStateMachine gameStateMachine, ISimulateCurrentDataService simulateData,
-            ISaveLoadService saveLoadService, IStaticDataService staticDataService)
+            ISaveLoadService saveLoadService)
         {
             _gameStateMachine = gameStateMachine;
             _saveLoadService = saveLoadService;
-            _staticDataService = staticDataService;
             _simulateData = simulateData;
         }
 

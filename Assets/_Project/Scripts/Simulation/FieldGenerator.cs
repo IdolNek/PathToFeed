@@ -14,10 +14,10 @@ namespace _Project.Scripts.Simulation
         public GameObject GenerateField()
         {
             GameObject field = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            field.transform.position = new Vector3(0f,-1f,0f);
+            field.transform.position = new Vector3(0f, -1f, 0f);
 
-            field.transform.localScale = new Vector3(_fieldSize +1f, 1, _fieldSize +1f);
-
+            field.transform.localScale = new Vector3(_fieldSize + 1f, 1, _fieldSize + 1f);
+            field.GetComponent<BoxCollider>().size = new Vector3(_fieldSize + 10f, 1f, _fieldSize + 10f);
             return field;
         }
     }

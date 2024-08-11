@@ -19,6 +19,7 @@ namespace _Project.Scripts.Simulation
         private int _fieldSize;
         private int _animalCount;
         private int _animalSpeed;
+        private AnimalSpawner _animalSpawner;
 
         [Inject]
         private void Construct(ISimulateCurrentDataService simulateCurrentDataService)
@@ -41,16 +42,19 @@ namespace _Project.Scripts.Simulation
 
         void SpawnAnimals(int animalCount, float speed)
         {
-            AnimalSpawner animalSpawner = new AnimalSpawner(animalPrefab, foodPrefab, effectPrefab, _fieldSize, speed);
+            _animalSpawner = new AnimalSpawner(animalPrefab, foodPrefab, effectPrefab, _fieldSize, speed);
 
             for (int i = 0; i < animalCount; i++)
             {
-                animalSpawner.SpawnAnimalWithFood();
+                _animalSpawner.SpawnAnimalWithFood();
             }
         }
 
         public class Factory : PlaceholderFactory<SimulationManager>
         {
         }
+
+        public void ChangeAnimalSpeed(float value) => 
+            _animalSpawner.ChangeAnimalSpeed(value);
     }
 }

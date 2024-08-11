@@ -7,6 +7,7 @@ namespace _Project.Scripts.Infrastructure.Factories
     {
         private readonly HUDRootPresenter.Factory _hudFactory;
         private readonly SimulationManager.Factory _simulationManagerFactory;
+        private SimulationManager _simulationManager;
 
         public GameFactory( HUDRootPresenter.Factory hudFactory, SimulationManager.Factory simulationManagerFactory)
         {
@@ -14,12 +15,18 @@ namespace _Project.Scripts.Infrastructure.Factories
             _hudFactory = hudFactory;
         }
 
-        public IHUDRoot CreateHUD() => _hudFactory.Create();
+        public IHUDRoot CreateHUD()
+        {
+            HUDRootPresenter hudRootPresenter = _hudFactory.Create();
+            hudRootPresenter.Init(_simulationManager);
+            return hudRootPresenter;
+        }
+
         public SimulationManager CreateSimulationManager()
         {
-            SimulationManager simulationManager = _simulationManagerFactory.Create();
-            simulationManager.InitializeSimulation();
-            return simulationManager;
+            _simulationManager = _simulationManagerFactory.Create();
+            _simulationManager.InitializeSimulation();
+            return _simulationManager;
         }
 
         public void Cleanup()
